@@ -2,14 +2,7 @@ import { styled } from 'styled-components';
 import image from "../assets/pwa-mock.png";
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
-const tech = [
-    "Java",
-    "React",
-    "Styled-components",
-    "firebase",
-    "TypeScript",
-    "Next.Js"
-]
+import { ProyectoInterface } from '../data';
 
 const Card = styled.div<any>`
    width: 300px;
@@ -53,12 +46,28 @@ const Descripcion = styled.p`
   margin: 0;
   font-size: 1.5rem;
 `;
+const ImgColaborador = styled.div`
+  position:relative; 
+  margin-top: 1rem;
+  
+  img{ 
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  margin-left: -8px;
+  }
+
+  }
+`;
+
 const colores = ["#b34c4c", "#748574", "#b99833"];
 
 interface Props {
-    setMostrarModal: (mostrar:boolean) => void;
+    seleccionarProyecto: ( proyecto: ProyectoInterface) => void;
+    proyecto: ProyectoInterface;
 }
-export const CardProyecto = ({setMostrarModal}:Props) => {
+export const CardProyecto = ({ seleccionarProyecto, proyecto }: Props) => {
 
     const { theme, mostrarComoRGBA } = useContext(ThemeContext);
 
@@ -68,23 +77,32 @@ export const CardProyecto = ({setMostrarModal}:Props) => {
         }
         return cadena;
     }
-    
+
     const abrirModal = () => {
-        setMostrarModal(true);
+        seleccionarProyecto(proyecto);
     }
 
     return (
         <Card bgColor={mostrarComoRGBA(theme.bgTerciario, 9)} onClick={abrirModal}>
             <img src={image} />
-            <Titulo style={{ color: theme.txtPrimario }}>Instagram Clone</Titulo>
-            <Descripcion style={{ color: theme.txtTerciario }}>{coratarCadena("Lorem ipsum dolor sit amet consectetur adipisicing elit. Ramleamet consectetur adipisicing elit adipisicing elit")}</Descripcion>
+            <Titulo style={{ color: theme.txtPrimario }}>{proyecto.titulo}</Titulo>
+            <Descripcion style={{ color: theme.txtTerciario }}>{coratarCadena(proyecto.descripcion)}</Descripcion>
             <div className='separador' style={{ background: mostrarComoRGBA(theme.txtTerciario, 5) + "" }}></div>
-            <p style={{margin: 0}}>
-            {
-                tech.map((t, i) =>
-                    <span style={{ fontSize: "1.2rem", fontWeight: "bold", color: colores[i % colores.length] }}>{`#${t} `}</span>)
-            }
+            <p style={{ margin: 0 }}>
+                {
+                    proyecto.tecnologias.map((t, i) =>
+                        <span style={{ fontSize: "1.2rem", fontWeight: "bold", color: colores[i % colores.length] }}>{`#${t} `}</span>)
+                }
             </p>
+            <div style={{display: "flex", marginLeft: "1rem"}}>
+                {
+                    proyecto.colaboradores.map(col => (
+                        <ImgColaborador>
+                            <img key={col.nombre} src={col.img} title={col.nombre}/>
+                        </ImgColaborador>
+                    ))
+                }
+            </div>
         </Card>
     )
 }

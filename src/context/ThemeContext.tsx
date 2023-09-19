@@ -34,7 +34,7 @@ const temas: { DARK: ThemeProps, LIGHT: ThemeProps } = {
         txtPrimario: "#0a103f",
         txtSecundario: "#161d4f",
         txtTerciario: "#61668d",
-        btnColor: "#fce96a",
+        btnColor: "#e5b600",
         btnColor2: "#0284c7"
     }
 }
