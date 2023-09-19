@@ -4,9 +4,9 @@ import { ThemeContext } from "../context/ThemeContext";
 const experiencias = [
 
     {
-        titulo: "Desarrodor React Native",
+        titulo: "Desarrollador React Native",
         empresa: "NetOne Software",
-        tiempo: "Octubre 2022 - febrero 2023",
+        tiempo: "Octubre 2022 - Actualidad",
         tareas: [
             "Desarrollo de soluciones ágiles para el ámbito empresarial.",
             "Uso de tecnología Salesforce & Saleforce Industry.",
@@ -16,22 +16,21 @@ const experiencias = [
     {
         titulo: "Desarrodor Full Stack",
         empresa: "NetOne Software",
-        tiempo: "Febrero 2023 - Actualidad ",
+        tiempo: "Agosto 2022 -  Abril 2023",
         tareas: [
             "Tecnologias : Java , Spring , Hibernate , Servlets , Javascript , JQuery , Boostrap",
             "Bases de datos relacionales con MySQL, No relacionales MongoDB.",
-            "Programación en APEX, SOQL, LWC, HTML, CSS, JavaScript, Omnistudio",
-            "Plataforma de cobro automatico de documentos con medios de pago recurrentes."
+            "Plataforma de cobro automatico de documentos con medios de pago recurrentes.",
+            "Desarrollo de soluciones ágiles para el ámbito empresarial.",
+            "Sistema de plantillas de impresion para PDF, en documentos fiscales. Comprobantes, Recibos, Notas de Debito/Credito, etc"
         ]
     },
     {
-        titulo: "Programador Freelance",
-        empresa: "NetOne Software",
-        tiempo: "2021 - Actualidad",
+        titulo: "Desarollador Freelance",
+        empresa: "Emanuel Cisterna",
+        tiempo: "Julio 2021 - Actualidad",
         tareas: [
-            "Desarrollo de soluciones ágiles para el ámbito empresarial.",
-            "Uso de tecnología Salesforce & Saleforce Industry.",
-            "Programación en APEX, SOQL, LWC, HTML, CSS, JavaScript, Omnistudio"
+            "Construccion de sitios web interactivos y visualmente impactantes. Meticuloso con el código limpio y las experiencias de usuario fluidas",
         ]
     },
 ];
