@@ -84,7 +84,7 @@ export const CardProyecto = ({ seleccionarProyecto, proyecto }: Props) => {
 
     return (
         <Card bgColor={mostrarComoRGBA(theme.bgTerciario, 9)} onClick={abrirModal}>
-            <img src={image} />
+            <img src={proyecto.imagen} />
             <Titulo style={{ color: theme.txtPrimario }}>{proyecto.titulo}</Titulo>
             <Descripcion style={{ color: theme.txtTerciario }}>{coratarCadena(proyecto.descripcion)}</Descripcion>
             <div className='separador' style={{ background: mostrarComoRGBA(theme.txtTerciario, 5) + "" }}></div>

@@ -10,11 +10,16 @@ const Contenedor = styled.footer<any>`
    grid-template-columns: 33% 33% 33%;
    align-items:center;
    margin:auto;
-   background: ${({background}) => background};
-   color:${({color}) => color}; 
+   background: ${({ background }) => background};
+   color:${({ color }) => color}; 
    h6{
     font-size: 2rem;
     text-align:center;
+   }
+
+   @media(max-width:600px){
+    display:flex;
+    flex-direction: column;
    }
 `
 
@@ -24,14 +29,14 @@ export const Footer = () => {
     return (
         <Contenedor color={theme.txtPrimario} background={theme.bgPrimario}>
             <div>
-                <p><b>Trabaja conmigo</b> <br/> emanuelcisterna@outlook.com</p>
+                <p><b>Trabaja conmigo</b> <br /> emanuelcisterna@outlook.com</p>
             </div>
             <h6>Todos los derechos reservados</h6>
-            <div style={{display: "flex", flexDirection: "column", alignItems: "end", justifyContent: "end"}}>
-                <p style={{textAlign: "right"}}><b>Encontrame aca</b></p>
-                <div style={{display: "flex", gap: "1rem", marginTop: "1rem"}}>
-                    <BsLinkedin size={"2rem"}/>
-                    <BsGithub size={"2rem"}/>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "end", justifyContent: "end" }}>
+                <p style={{ textAlign: "right" }}><b>Encontrame aca</b></p>
+                <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+                    <BsGithub size={"2.5rem"} onClick={() => { window.location.href = "https://github.com/EmaDev" }} />
+                    <BsLinkedin size={"2.5rem"} onClick={() => { window.location.href = "https://www.linkedin.com/in/emanuel-cisterna" }} />
                 </div>
             </div>
         </Contenedor>

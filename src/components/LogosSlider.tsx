@@ -22,7 +22,7 @@ const ScrollRight = keyframes`
 
 const SliderContainer = styled.div<any>`
    overflow: hidden;
-   height: 150px;
+   margin: 1rem auto; 
    white-space: nowrap;
    display: flex;
    align-items:center;
@@ -62,6 +62,10 @@ const Slider = styled.div<any>`
     animation-play-state:paused;
     transition: all 0.3s ease-in-out;
   }
+
+  @media(max-width: 600px){
+    width: calc(200px * 15);
+  }
 `;
 
 const ItemSlider = styled.div<any>`
@@ -80,6 +84,10 @@ const ItemSlider = styled.div<any>`
     border: 3px solid #e1e1e1;
     transition: all 0.3s ease-in-out;
    }
+   @media(max-width: 600px){
+    min-width: 200px;
+    height: 90px;
+  }
 `;
 
 const ContenidoItem = styled.div<any>`
@@ -104,13 +112,23 @@ const ContenidoItem = styled.div<any>`
    }
 
    &:hover{
-    img{
-      height: 60px;
-    }
     span{
       font-size: 3.2rem;
+      @media(max-width: 600px){
+        font-size: 2.6rem;
+      }
     }
     transition: .3s ease all;
+   }
+
+   @media(max-width: 600px){
+    img{
+      height: 40px;
+      max-width: 40px;
+    }
+    span{
+      font-size: 2.3rem;
+    }
    }
 `;
 

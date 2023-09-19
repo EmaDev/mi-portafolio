@@ -18,6 +18,7 @@ const Contenedor = styled.div<any>`
         :
         `background: #86e3ed;`
     }
+    border: 1px solid rgba(255,255,255,0.5);
     transition: all 0.5s ease-in-out;
 `;
 const Esfera = styled.div<any>`
@@ -61,7 +62,7 @@ export const SelectorTema = () => {
     }
 
     return (
-        <div style={{ position: "absolute", top: "5rem", right: "6rem" }}>
+        <div style={{ position: "absolute", top: "5rem", right: "7rem" }}>
             <Contenedor onClick={handleCambiarTema} tema={theme.modo}>
                 <Esfera tema={theme.modo}>
                     {theme.modo == "LIGHT" ? <CiSun className="icono" color="#a97b25"/> : <FiMoon  className="icono" color="#a97b25"/>}

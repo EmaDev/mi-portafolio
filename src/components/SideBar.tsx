@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 import { MdCancel } from "react-icons/md";
 import { ThemeContext } from "../context/ThemeContext";
 import { SelectorTema } from "./SelectorTema";
+import { hexToRgba } from "../helpers";
 
 
 const Contenedor = styled.div<any>`
@@ -31,7 +32,13 @@ const Barra = styled.div<any>`
 
 `;
 const Ul = styled.ul`
-  posiiton:relative;
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  list-style:none;
 
   .icono{
     position:absolute;
@@ -39,14 +46,24 @@ const Ul = styled.ul`
     top:1rem;
     color:#fff;
   }
+`;
 
+const Li = styled.li<any>`
+  padding: 1rem;
+  border-bottom: 1px solid ${({color}) => hexToRgba(color, 0.3)};
+  width: 100%;
+  color: ${({color}) => color};
+  text-align:center;
+  a{
+    font-weight: 600;
+  }
 `;
 
 interface Props {
-    visibiladad: boolean; 
-    setVisibilidad: (modo:boolean) => void;
+    visibiladad: boolean;
+    setVisibilidad: (modo: boolean) => void;
 }
-export const SideBar = ({visibiladad, setVisibilidad}:Props) => {
+export const SideBar = ({ visibiladad, setVisibilidad }: Props) => {
 
     //const [visible, setVisible] = useState<boolean>(false);
     const { theme } = useContext(ThemeContext);
@@ -61,18 +78,24 @@ export const SideBar = ({visibiladad, setVisibilidad}:Props) => {
         }
     }, [visibiladad]);
 
-    if(!isMobile) return <></>
+    if (!isMobile) return <></>
     return (
         <>
             <Contenedor tema={theme} visible={visibiladad.toString()} />
 
             <Barra background={theme.bgPrimario} visible={visibiladad.toString()}>
                 <Ul>
-                    <MdCancel className="icono" size={"3.5rem"} 
-                    color={ theme.btnColor }
-                    onClick={() => setVisibilidad(false)} />
+                    <MdCancel className="icono" size={"3.5rem"}
+                        color={theme.btnColor}
+                        onClick={() => setVisibilidad(false)} />
+                    <Li href="#proyectos" color={theme.txtPrimario}><a>Proyectos</a></Li>
+                    <Li href="#experiencia" color={theme.txtPrimario}><a>Experiencia</a></Li>
+                    <Li href="#sobre-mi" color={theme.txtPrimario}><a>Sobre mi</a></Li>
+                    <Li href="#contacto" color={theme.txtPrimario}><a>Contacto</a></Li>
                 </Ul>
-                <SelectorTema/>
+                <div style={{display: "flex", margin: "auto", justifyContent: "center", alignItems: "center"}}>
+                 <SelectorTema />
+                </div>
             </Barra>
         </>
 

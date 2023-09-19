@@ -8,9 +8,12 @@ const experiencias = [
         empresa: "NetOne Software",
         tiempo: "Octubre 2022 - Actualidad",
         tareas: [
-            "Desarrollo de soluciones ágiles para el ámbito empresarial.",
-            "Uso de tecnología Salesforce & Saleforce Industry.",
-            "Programación en APEX, SOQL, LWC, HTML, CSS, JavaScript, Omnistudio"
+            "Diseño y desarrollo de interfaces de usuario.",
+            "Implementacion de servicios: APIs, autenticacion, notificaciones push, Google Maps, etc.",
+            "Implementacion de logica de negocio.",
+            "Desarrollo backend con Java y NodeJs.",
+            "Base de datos: MySql y Mongo DB.",
+            "Depuracion y pruebas.",
         ]
     },
     {
@@ -31,6 +34,9 @@ const experiencias = [
         tiempo: "Julio 2021 - Actualidad",
         tareas: [
             "Construccion de sitios web interactivos y visualmente impactantes. Meticuloso con el código limpio y las experiencias de usuario fluidas",
+            "Desarrollo completo de sitios web dinamicos",
+            "Creacion y manteniento de base de datos",
+            "Monejo de posicionamiento SEO"
         ]
     },
 ];

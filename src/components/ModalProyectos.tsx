@@ -4,12 +4,13 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { ThemeContext } from '../context/ThemeContext';
 import 'animate.css';
 import { ProyectoInterface } from '../data';
+import { aclararColorRGBA, hexToRgba } from '../helpers';
 
 const Contenedor = styled.div<any>`
    position:fixed;
    top: 0;
    left:0;
-   background: ${({ theme }) => theme == "DARK" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.8)"};
+   background: ${({ theme }) => theme == "DARK" ? "rgba(0,0,0,0.8)" : "rgba(0,0,0,0.8)"};
    width: 100vw;
    height: 100vh;
    z-index: 999;
@@ -24,14 +25,16 @@ const Modal = styled.div<any>`
    width: 60vw;
    height: 80vh;
    background: ${({ background }) => background};
-   border-radius: 10px;
+   border-radius: 6px;
    max-width: 650px;
-   box-shadow: 2px 2px 12px rbga(0,0,0,0.5);
    position:absolute;
    @media(max-width: 800px){
     width: 90%;  
     height: 90vh;  
    }
+   
+   border: 1px solid ${({ background }) => aclararColorRGBA( hexToRgba(background, 1), 25)};
+   box-shadow: 2px 2px 25px rgba(0,0,0,0.7);
    animation: bounceInUp; 
    animation-duration: 1s;
    .separador{
@@ -51,6 +54,7 @@ const ContenedorImagen = styled.div<any>`
     margin:auto;
     min-width:100%;
     max-height: 320px;
+    border-radius: 8px 8px 0 0;
   }
   .contenido{
     display:flex;
@@ -65,11 +69,17 @@ const BotonSlide = styled.button<any>`
    height: 35px;
    border-style:none;
    border-radius: 50%;
-   background: #fff;
+   background: rgba(255,255,255,0.5);
    top:0; bottom:0;
    margin:auto;
    ${({ left }) => left ? `left: 1rem;` : `right:1rem;`}
    z-index: 9;
+
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   padding: .3rem;
+   font-size: 2.2rem;
 `;
 
 const DotSlide = styled.span<any>`
@@ -124,7 +134,6 @@ interface Props {
     data: ProyectoInterface;
 }
 
-const arrImagenes = ["red", "green", "orange", "yellow", "brown", "purple"];
 const colores = ["#b34c4c", "#748574", "#b99833"];
 
 export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
@@ -134,6 +143,11 @@ export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
     const [translateX, setTranslateX] = useState<string>("0");
     const sliderRef: any = useRef(null);
     const modalRef: any = useRef(null);
+
+    useEffect( () => {
+        setPosicionImagen(0);
+        setTranslateX("0");
+    }, [data]);
 
     useEffect(() => {
         const body = document.getElementsByTagName("body")[0];
@@ -153,7 +167,7 @@ export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
         }
     }
     const siguienteItemSlider = () => {
-        if (posicionImagen < arrImagenes.length - 1) {
+        if (posicionImagen < data.imagenes.length - 1) {
             const widthSlider = sliderRef.current.offsetWidth;
             setTranslateX(`-${widthSlider}px*${posicionImagen + 1}`);
             setPosicionImagen((prev) => prev + 1);
@@ -164,18 +178,18 @@ export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
 
     return (
         <Contenedor theme={theme.modo}>
-            <Modal background={theme.bgPrimario} ref={modalRef}>
+            <Modal background={theme.bgSecundario} ref={modalRef}>
                 <ContenedorImagen posicion={translateX}>
 
                     <BotonSlide left="true" onClick={volverItemSlider}><IoIosArrowBack /></BotonSlide>
                     <BotonSlide onClick={siguienteItemSlider}><IoIosArrowForward /></BotonSlide>
                     <div className='contenido' ref={sliderRef}>
-                        {arrImagenes.map( (img, i) => (
-                            <img key={ img + "-"+ i} className='imagen' style={{ background: img }} src="https://png.pngtree.com/background/20230612/original/pngtree-wolf-animals-images-wallpaper-for-pc-384x480-picture-image_3180467.jpg" />
+                        {data.imagenes.map( (img, i) => (
+                            <img key={ img + "-"+ i} className='imagen' src={img} />
                         ))}
                     </div>
                     <div style={{ margin: "1rem auto", display: "flex", alignItems: "center", justifyContent: "center", columnGap: "1rem" }}>
-                        {arrImagenes.map((img, i) => (
+                        {data.imagenes.map((img, i) => (
                             <DotSlide key={img + "-dot"} activo={(i == posicionImagen) ? "true" : "false"} color={theme.btnColor2} />
                         ))}
                     </div>

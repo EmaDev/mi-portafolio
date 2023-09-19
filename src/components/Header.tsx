@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { ThemeContext } from "../context/ThemeContext";
 import { LogosSlider } from "./LogosSlider";
-import { BotonAnimado } from "./basicos/BotonAnimado";
-import { LISTA_SKILLS, hexToRgba } from "../helpers";
+import { hexToRgba } from "../helpers";
 import { SelectorTema } from "./SelectorTema";
-
+import StarsCanvas from "./Stars";
+import { LISTA_SKILLS } from "../data";
 
 const HeaderSection = styled.header<any>`
    position:relative;
@@ -28,7 +28,7 @@ const HeaderSection = styled.header<any>`
     margin: 2rem auto; width: 40%; height: 60px; column-gap: 4rem; grid-template-columns: 50% 50%;
 
     @media(max-width: 600px){
-      width: 90%;
+      width: 80%;
     }
    }
 
@@ -39,7 +39,12 @@ const Titulo = styled.h1`
   font-size: 5rem;
   text-align:center;
   @media(max-width: 600px){
+    padding-top: 2rem;
     font-size: 3.4rem;
+  }
+  @media(max-width: 500px){
+    padding-top:2rem;
+    font-size: 2.6rem;
   }
 `;
 
@@ -53,40 +58,54 @@ const Subtitulo = styled.p`
     font-size: 1.6rem;
     width: 96vw;
   }
+  @media(max-width: 500px){
+    font-size: 1.4rem;
+  }
 
 `;
 
-const Boton = styled.button<any>`
+const Boton = styled.a<any>`
    position:absolute;
    padding: 1rem;
    top: 0;
    bottom:0;
    left:0; right:0;
    margin:auto;
+   text-align:center;
+   cursor:pointer;
    border-radius: 8px;
    border-style:none;
    font-size: 2rem;
    font-weight: 600;
-   color: ${({color}) => color};
-   background: ${({background}) => background};
+   color: ${({ color }) => color};
+   background: ${({ background }) => background};
    width:90%;
    height: 90%;
 
-   ${({outline, background, bg2}) => outline && 
-   `background: ${hexToRgba(bg2, 0.1)};
+   ${({ outline, background, bg2 }) => outline &&
+    `background: ${hexToRgba(bg2, 0.1)};
     backdrop-filter: blur(5px);
     border: 2px solid ${background};`
-   }
+  }
 
    &:hover{
     padding: 1.5rem;
     height: 120%;
     width: 110%;
     font-size: 2.2rem;
-    box-shadow: 2px 2px 20px ${({background}) => hexToRgba(background, 0.6)};
+    box-shadow: 2px 2px 20px ${({ background }) => hexToRgba(background, 0.6)};
+
+    @media(max-width:600px){
+      font-size: 1.8rem;
+     }
    }
 
    transition: .3s ease all;
+
+   @media(max-width:600px){
+    font-size: 1.4rem;
+    text-align:center;
+   }
 
 `;
 
@@ -97,27 +116,30 @@ export const Header = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
 
   return (
-    <HeaderSection background={theme.bgPrimario} color={theme.txtPrimario}>
-      {!isMobile && <SelectorTema />}
-      <Titulo>Programador Full Stack <br />& Diseñador Web</Titulo>
-      <Subtitulo color={theme.txtTerciario}>Apasionado por aprender nuevas habilidades y resolver problemas. Trabajo usando el desarrollo y el diseño para un impacto positivo, realmente disfruto creando experiencias humanas, placenteras y centradas en el usuario.</Subtitulo>
-      <br />
-      <LogosSlider listaImagenes={Array.from({ length: 2 }, () => [...LISTA_SKILLS.slice(0, (LISTA_SKILLS.length / 2))]).flat()} />
-      <LogosSlider direccion="LEFT" sincro={false} listaImagenes={Array.from({ length: 2 }, () => [...LISTA_SKILLS.slice((LISTA_SKILLS.length / 2))]).flat()} />
+      <HeaderSection background={theme.bgPrimario} color={theme.txtPrimario}>
+        <StarsCanvas/>
+        {!isMobile && <SelectorTema />}
+        <Titulo>Programador Full Stack <br />& Diseñador Web</Titulo>
+        <Subtitulo color={theme.txtTerciario}>
+        Como desarrollador Full Stack con experiencia en aplicaciones nativas y web, estoy apasionado por aprender nuevas habilidades y resolver problemas, utilizando el desarrollo y el diseño para lograr un impacto positivo en cada proyecto.
+        </Subtitulo>
+        <br />
+        <LogosSlider listaImagenes={Array.from({ length: 2 }, () => [...LISTA_SKILLS.slice(0, (LISTA_SKILLS.length / 2))]).flat()} />
+        <LogosSlider direccion="LEFT" sincro={false} listaImagenes={Array.from({ length: 2 }, () => [...LISTA_SKILLS.slice((LISTA_SKILLS.length / 2))]).flat()} />
 
-      <div className="divBtns">
-        <div style={{ width: "100%", position: "relative" }}>
-          <Boton color={theme.txtPrimario} background={theme.btnColor2}>Contacto</Boton>
+        <div className="divBtns">
+          <div style={{ width: "100%", position: "relative" }}>
+            <Boton href='#contacto' color={theme.txtPrimario} background={theme.btnColor2}>Contacto</Boton>
+          </div>
+          <div style={{ width: "100%", position: "relative" }}>
+            <Boton href='#proyectos' color={theme.txtPrimario} background={theme.btnColor2} bg2={theme.btnColor} outline="true">Mis proyectos</Boton>
+          </div>
         </div>
-        <div style={{ width: "100%", position: "relative" }}>
-          <Boton color={theme.txtPrimario} background={theme.btnColor2} bg2={theme.btnColor} outline="true">Mis proyectos</Boton>
-        </div>
-      </div>
 
-      <div style={{ display: "flex", gap: "5rem" }}>
-        <BsGithub size={"3rem"} />
-        <BsLinkedin size={"3rem"} />
-      </div>
-    </HeaderSection>
+        <div style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}>
+          <BsGithub size={"3rem"} onClick={() => { window.location.href = "https://github.com/EmaDev" }} />
+          <BsLinkedin size={"3rem"} onClick={() => { window.location.href = "https://www.linkedin.com/in/emanuel-cisterna" }} />
+        </div>
+      </HeaderSection>
   )
 }

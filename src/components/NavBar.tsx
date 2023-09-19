@@ -56,8 +56,12 @@ const Ul = styled.ul`
    li{
     display: inline-block;
     margin: 0 3rem;
-    color: #fff;
     cursor:pointer;
+
+    a{
+    color: #fff;
+    font-weight: 600;
+    }
    }
 
    @media(max-width: 850px){
@@ -104,13 +108,13 @@ export const NavBar = () => {
             <Nav navHidden={navHidden}>
                 <Titulo>{"</Emanuel Cisterna>"}</Titulo>
                 <Ul>
-                    <li>Experiencia</li>
-                    <li>Sobre mi</li>
-                    <BtnContacto style={{ background: theme.btnColor2 }}>Contactarme</BtnContacto>
+                    <li><a href='#experiencia'>Experiencia</a></li>
+                    <li><a href='#sobre-mi'>Sobre mi</a></li>
+                    <BtnContacto style={{ background: theme.btnColor2 }}><a href='#contacto'>Contactame</a></BtnContacto>
                 </Ul>
-                <BtnMenu color={theme.txtPrimario} onClick={() => setSideBarActivo(true)}><LuMenu /></BtnMenu>
+                <BtnMenu color={theme.modo == "DARK" ? theme.txtPrimario : theme.bgTerciario} onClick={() => setSideBarActivo(true)}><LuMenu /></BtnMenu>
             </Nav>
-            <br /><br /><br />
+            <br /><br />
         </>
     )
 }
