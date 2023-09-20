@@ -119,12 +119,12 @@ const Boton = styled.button<any>`
    padding: 1rem 2rem;
 
    &:hover{
-    width: 105%;
-    padding: 1.6rem 2.4rem;
+    width: 100%;
+    width: 102%;
     font-size: 2.2rem;
    }
 
-   transition: .2s ease all;
+   transition: .3s ease all;
 `;
 
 
@@ -198,10 +198,7 @@ export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
                     <Titulo color={theme.txtPrimario}>{data.titulo}</Titulo>
                     <Descripcion color={(theme.modo == "DARK") ? theme.txtPrimario : theme.txtSecundario}>{data.descripcion}</Descripcion>
                 </div>
-                <div style={{ position: "absolute", width: "80%", left: 0, right: 0, bottom: "2rem", margin: "auto", display: "flex", columnGap: "2.5rem" }}>
-                    <div style={{ position: "relative", width: "100%", height: "2rem" }}>
-                        <Boton background={theme.btnColor2} onClick={() => cerrarModal(false)}>Ver sitio</Boton>
-                    </div>
+                <div style={{ position: "absolute", width: "80%", left: 0, right: 0, bottom: "2rem", margin: "auto" }}>
                     <div style={{ position: "relative", width: "100%", height: "2rem" }}>
                         <Boton background={"#ff4b4b"} onClick={() => cerrarModal(false)}>Cerrar</Boton>
                     </div>

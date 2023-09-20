@@ -55,7 +55,7 @@ const SliderContainer = styled.div<any>`
   }
 `;
 const Slider = styled.div<any>`
-  animation: ${({ direccion }) => (direccion == "LEFT") ? ScrollLeft : ScrollRight} ${({sincro}) => sincro ? "30s":"20s"} linear infinite;  
+  animation: ${({ direccion }) => (direccion == "LEFT") ? ScrollLeft : ScrollRight} ${({sincro}) => sincro == "true" ? "30s":"20s"} linear infinite;  
   width: calc(250px * 15);
   display:flex;
   &:hover{
@@ -143,7 +143,7 @@ export const LogosSlider = ({ listaImagenes, direccion = "LEFT", sincro=true }: 
 
   return (
     <SliderContainer color={theme.bgPrimario}>
-      <Slider direccion={direccion} sincro={sincro}>
+      <Slider direccion={direccion} sincro={sincro.toString()}>
         {listaImagenes.map((obj, i) => (
           <ItemSlider key={i} color={theme.bgSecundario} colorHover={theme.bgTerciario}>
             <ContenidoItem modo={theme.modo}>

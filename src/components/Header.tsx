@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
+import { IoIosArrowDown } from "react-icons/io";
 import { ThemeContext } from "../context/ThemeContext";
 import { LogosSlider } from "./LogosSlider";
 import { hexToRgba } from "../helpers";
@@ -31,6 +32,28 @@ const HeaderSection = styled.header<any>`
       width: 80%;
     }
    }
+
+   .arrowScroll{
+    position:absolute;
+    bottom: 1rem;
+    left: 0;
+    right:0;
+    margin:auto;
+
+    animation: slideInDown; 
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+   }
+
+   .link{
+    font-size: 3.5rem;
+   
+    &:hover{
+      color: red;
+      animation: slideInDown; 
+      animation-duration: 2s;
+     } 
+  }
 
 `;
 
@@ -83,8 +106,8 @@ const Boton = styled.a<any>`
    height: 90%;
 
    ${({ outline, background, bg2 }) => outline &&
-    `background: ${hexToRgba(bg2, 0.1)};
-    backdrop-filter: blur(5px);
+    `background: ${hexToRgba(bg2, 0)};
+    backdrop-filter: blur(3px);
     border: 2px solid ${background};`
   }
 
@@ -116,30 +139,37 @@ export const Header = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
 
   return (
-      <HeaderSection background={theme.bgPrimario} color={theme.txtPrimario}>
-        <StarsCanvas/>
-        {!isMobile && <SelectorTema />}
-        <Titulo>Programador Full Stack <br />& Diseñador Web</Titulo>
-        <Subtitulo color={theme.txtTerciario}>
+    <HeaderSection background={theme.bgPrimario} color={theme.txtPrimario} id="">
+      <StarsCanvas />
+      {!isMobile && <SelectorTema />}
+      <Titulo>Programador Full Stack <br />& Diseñador Web</Titulo>
+      <Subtitulo color={theme.txtTerciario}>
         Como desarrollador Full Stack con experiencia en aplicaciones nativas y web, estoy apasionado por aprender nuevas habilidades y resolver problemas, utilizando el desarrollo y el diseño para lograr un impacto positivo en cada proyecto.
-        </Subtitulo>
-        <br />
-        <LogosSlider listaImagenes={Array.from({ length: 2 }, () => [...LISTA_SKILLS.slice(0, (LISTA_SKILLS.length / 2))]).flat()} />
-        <LogosSlider direccion="LEFT" sincro={false} listaImagenes={Array.from({ length: 2 }, () => [...LISTA_SKILLS.slice((LISTA_SKILLS.length / 2))]).flat()} />
+      </Subtitulo>
+      <br />
+      <LogosSlider listaImagenes={Array.from({ length: 2 }, () => [...LISTA_SKILLS.slice(0, (LISTA_SKILLS.length / 2))]).flat()} />
+      <LogosSlider direccion="LEFT" sincro={false} listaImagenes={Array.from({ length: 2 }, () => [...LISTA_SKILLS.slice((LISTA_SKILLS.length / 2))]).flat()} />
 
-        <div className="divBtns">
-          <div style={{ width: "100%", position: "relative" }}>
-            <Boton href='#contacto' color={theme.txtPrimario} background={theme.btnColor2}>Contacto</Boton>
-          </div>
-          <div style={{ width: "100%", position: "relative" }}>
-            <Boton href='#proyectos' color={theme.txtPrimario} background={theme.btnColor2} bg2={theme.btnColor} outline="true">Mis proyectos</Boton>
-          </div>
+      <div className="divBtns">
+        <div style={{ width: "100%", position: "relative" }}>
+          <Boton href='#contacto' color={theme.txtPrimario} background={theme.btnColor2}>Contacto</Boton>
         </div>
+        <div style={{ width: "100%", position: "relative" }}>
+          <Boton href='#proyectos' color={theme.txtPrimario} background={theme.btnColor2} bg2={theme.btnColor} outline="true">Mis proyectos</Boton>
+        </div>
+      </div>
 
-        <div style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}>
-          <BsGithub size={"3rem"} onClick={() => { window.location.href = "https://github.com/EmaDev" }} />
-          <BsLinkedin size={"3rem"} onClick={() => { window.location.href = "https://www.linkedin.com/in/emanuel-cisterna" }} />
-        </div>
-      </HeaderSection>
+      {
+        !isMobile ?
+          <div style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}>
+            <BsGithub className="link" onClick={() => { window.location.href = "https://github.com/EmaDev" }} />
+            <BsLinkedin className="link" onClick={() => { window.location.href = "https://www.linkedin.com/in/emanuel-cisterna" }} />
+          </div>
+          :
+         <> <br/><br/></>
+      }
+
+      <IoIosArrowDown size={"3rem"} className="arrowScroll" />
+    </HeaderSection>
   )
 }

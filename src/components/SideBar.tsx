@@ -50,54 +50,56 @@ const Ul = styled.ul`
 
 const Li = styled.li<any>`
   padding: 1rem;
-  border-bottom: 1px solid ${({color}) => hexToRgba(color, 0.3)};
+  border-bottom: 1px solid ${({ color }) => hexToRgba(color, 0.3)};
   width: 100%;
-  color: ${({color}) => color};
   text-align:center;
   a{
     font-weight: 600;
+    color: ${({ color }) => color};
   }
 `;
 
 interface Props {
-    visibiladad: boolean;
-    setVisibilidad: (modo: boolean) => void;
+  visibiladad: boolean;
+  setVisibilidad: (modo: boolean) => void;
 }
 export const SideBar = ({ visibiladad, setVisibilidad }: Props) => {
 
-    //const [visible, setVisible] = useState<boolean>(false);
-    const { theme } = useContext(ThemeContext);
-    const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
+  const { theme } = useContext(ThemeContext);
+  const isMobile = useMediaQuery({ query: '(max-width: 850px)' });
 
-    useEffect(() => {
-        const body = document.getElementsByTagName("body")[0];
-        if (visibiladad) {
-            body.classList.add("bloquear");
-        } else {
-            body.classList.remove("bloquear");
-        }
-    }, [visibiladad]);
+  useEffect(() => {
+    const body = document.getElementsByTagName("body")[0];
+    if (visibiladad) {
+      body.classList.add("bloquear");
+    } else {
+      body.classList.remove("bloquear");
+    }
+  }, [visibiladad]);
 
-    if (!isMobile) return <></>
-    return (
-        <>
-            <Contenedor tema={theme} visible={visibiladad.toString()} />
+  if (!isMobile) return <></>
+  return (
+    <>
+      <Contenedor tema={theme} visible={visibiladad.toString()} />
 
-            <Barra background={theme.bgPrimario} visible={visibiladad.toString()}>
-                <Ul>
-                    <MdCancel className="icono" size={"3.5rem"}
-                        color={theme.btnColor}
-                        onClick={() => setVisibilidad(false)} />
-                    <Li href="#proyectos" color={theme.txtPrimario}><a>Proyectos</a></Li>
-                    <Li href="#experiencia" color={theme.txtPrimario}><a>Experiencia</a></Li>
-                    <Li href="#sobre-mi" color={theme.txtPrimario}><a>Sobre mi</a></Li>
-                    <Li href="#contacto" color={theme.txtPrimario}><a>Contacto</a></Li>
-                </Ul>
-                <div style={{display: "flex", margin: "auto", justifyContent: "center", alignItems: "center"}}>
-                 <SelectorTema />
-                </div>
-            </Barra>
-        </>
+      <Barra background={theme.bgPrimario} visible={visibiladad.toString()}>
+        <Ul>
+          <MdCancel className="icono" size={"3.5rem"}
+            color={theme.btnColor}
+            onClick={() => setVisibilidad(false)} />
 
-    )
+          <div style={{width: "100%"}} onClick={() => setVisibilidad(false)}>
+            <Li color={theme.txtPrimario}><a href="#proyectos">Proyectos</a></Li>
+            <Li color={theme.txtPrimario}><a href="#experiencia">Experiencia</a></Li>
+            <Li color={theme.txtPrimario}><a href="#sobre-mi">Sobre mi</a></Li>
+            <Li color={theme.txtPrimario}><a href="#contacto">Contacto</a></Li>
+          </div>
+        </Ul>
+        <div style={{ display: "flex", margin: "auto", justifyContent: "center", alignItems: "center" }}>
+          <SelectorTema />
+        </div>
+      </Barra>
+    </>
+
+  )
 }

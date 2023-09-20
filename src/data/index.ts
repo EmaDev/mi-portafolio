@@ -8,7 +8,6 @@ import imgJs from "../assets/iconos/js-icon.svg";
 import imgMongo from "../assets/iconos/mongo-icon.svg"
 import imgMysql from "../assets/iconos/mysql-icon.svg"
 import imgTs from "../assets/iconos/ts-icon.svg";
-import imgRN from "../assets/iconos/react-native.png";
 import imgNode from "../assets/iconos/node-icon.svg";
 
 export interface ProyectoInterface {
@@ -123,7 +122,9 @@ export const PROYECTOS: ProyectoInterface[] = [
     },
     {
         titulo: "Prode Qatar 2022",
-        descripcion: "",
+        descripcion: `Juego Prode mundial Qatar 2022. Este sitio permite crear salas privadas donde multiples usuarios
+        pueden armar su fixture con las resultados de cada partido. A medida que avanzan las rondas los jugares acumulan
+        puntos segun su grado de acierto. Las posiciones de la sala se mustran en lista a modo de ranking.`,
         colaboradores: [{nombre:"Emanuel Cisterna", img: "https://avatars.githubusercontent.com/u/101511719?v=4"}],
         imagen: "https://firebasestorage.googleapis.com/v0/b/portafolio-3c6e9.appspot.com/o/proyectos%2Fprode.jpg?alt=media&token=59678a54-9a3d-4650-863c-7c7d6643bd7e",
         imagenes: [

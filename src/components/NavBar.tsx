@@ -24,10 +24,15 @@ const Nav = styled.nav<any>`
    }
 `;
 
-const Titulo = styled.h2`
+const Titulo = styled.a`
    color: #fff;
    margin: 0;
    font-size: 2rem;
+   font-weight: 800;
+
+   @media(max-width: 600px){
+    font-size: 1.5rem;
+   }
 `;
 
 const BtnMenu = styled.button`
@@ -62,6 +67,11 @@ const Ul = styled.ul`
     color: #fff;
     font-weight: 600;
     }
+
+    &:hover{
+        letter-spacing: 4px;
+    }
+    transition: .3s ease all;
    }
 
    @media(max-width: 850px){
@@ -106,7 +116,7 @@ export const NavBar = () => {
         <>
             <SideBar visibiladad={sideBarActivo} setVisibilidad={setSideBarActivo}/>
             <Nav navHidden={navHidden}>
-                <Titulo>{"</Emanuel Cisterna>"}</Titulo>
+                <Titulo href="#">{"</Emanuel Cisterna>"}</Titulo>
                 <Ul>
                     <li><a href='#experiencia'>Experiencia</a></li>
                     <li><a href='#sobre-mi'>Sobre mi</a></li>

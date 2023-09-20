@@ -5,13 +5,15 @@ import * as random from "maath/random/dist/maath-random.esm";
 import { ThemeContext } from "../context/ThemeContext";
 
 const Stars = () => {
-  const ref:any = useRef(null);
-  const [sphere] = useState(() => random.inSphere(new Float32Array(5000), { radius: 1.2 }));
+  const ref = useRef(null);
+  const [sphere] = useState(() =>
+   random.inSphere(new Float32Array(5001), { radius: 1.2 }));
   const {theme} = useContext(ThemeContext);
 
-  useFrame((state, delta) => {
-    ref.current.rotation.x -= delta / 10;
-    ref.current.rotation.y -= delta / 15;
+  useFrame(( state, delta ) => {
+    if(state)
+       ref.current.rotation.x -= delta / 10;
+       ref.current.rotation.y -= delta / 15;
   });
 
   return (

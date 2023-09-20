@@ -7,9 +7,30 @@ import { ThemeProps } from "../context/ThemeContext";
 const Formulario = styled.form`
    width: 90%;
    max-width: 600px;
-   margin: auto;
-   margin-top: 2rem;
-   margin-bottom: 2rem;
+   margin: 2rem auto;
+   background: #e1e1e1;
+   padding:3rem;
+   border-radius:8px;
+   color: #0a103f;
+
+   label{
+    font-size: 2rem;
+    font-weight: 600;
+    margin:0;
+   }
+
+   h2{
+    font-size: 3rem;
+    margin:0;
+   }
+   @media(min-width: 850px){
+    h2{
+        font-size: 5rem;
+    }
+    label{
+
+    }
+   }
 `;
 const Input = styled.input`
    width: 100%;
@@ -19,26 +40,21 @@ const Input = styled.input`
    color: var(--primary);
    border-radius: 6px;
    margin: 1rem 0;
+   border-style:none;
+   box-shadow: 1px 1px 3px rgba(0,0,0,0.2); 
 `;
 const TextArea = styled.textarea`
    width: 100%;
-   min-height: 350px;
+   min-height: 250px;
    padding: 1.5rem;
    background-color: #fff;
    font-size: 2rem;
    color: var(--primary);
    border-radius: 6px;
    margin: 1rem 0;
+   border-style:none;
+   box-shadow: 1px 1px 3px rgba(0,0,0,0.2); 
 `;
-/*
-const BotonSubmit = styled.input`
-   width: 100%;
-   padding: 1.5rem;
-   background-color: #1e2428;
-   font-size: 2rem;
-   border-radius: 6px;
-   color: var(--secondary);
-`;*/
 
 const BotonSubmit = styled.input<any>`
    position:absolute;
@@ -86,22 +102,28 @@ export const FormuContacto = ({theme}:Props) => {
         });
     }
     return (
-        <Formulario action="https://formsubmit.co/emanuel00developer@gmail.com" method="POST">
+        <Formulario action="https://formsubmit.co/emanuel00developer@gmail.com" method="POST"
+        style={{background: theme.modo == "LIGHT" ? "#0a103f" : ""}}
+        >
+            <h2 style={{color: theme.modo == "LIGHT" ? theme.txtTerciario : ""}}>Contacto.</h2>
+            <label>Tu nombre</label>
             <Input
                 type="text"
-                placeholder='Nombre'
+                placeholder='Como puedo llamarte'
                 name='name'
                 value={name}
                 onChange={onInputStateChange}
             />
+            <label>Tu correo</label>
             <Input
                 type="email"
                 name="email"
-                placeholder='Correo electronico'
+                placeholder='Cual es tu correo?'
                 value={email}
                 onChange={onInputStateChange}
             />
-            <TextArea placeholder='Mensaje'
+            <label>Mensaje</label>
+            <TextArea placeholder='Que tenes para decirme?'
                 name="message"
                 value={message}
                 onChange={onInputStateChange}

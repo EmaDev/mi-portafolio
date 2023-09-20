@@ -4,13 +4,27 @@ import { FormuContacto } from './FormContacto';
 import { ThemeContext } from '../context/ThemeContext';
 import imgDev from "../assets/developer.svg";
 import { useMediaQuery } from "react-responsive";
-
+import "animate.css";
 
 const Contenedor = styled.div`
-   width: 90%;
    display: grid; 
-   grid-template-columns: 60% 40%;
    margin:auto;
+   justify-content:center;
+   align-items:center;
+
+   @media(min-width: 850px){
+    grid-template-columns: 60% 40%;
+    width: 90%;
+   }
+`;
+
+const Imagen = styled.img`
+   animation: jello; 
+   animation-duration: 3s;
+   animation-delay: 5s;
+   animation-iteration-count: infinite;
+
+   max-width: 450px;
 `;
 
 export const Contacto = () => {
@@ -22,8 +36,8 @@ export const Contacto = () => {
         <Contenedor>
             <FormuContacto theme={theme} />
             {!isMobile &&
-                <div>
-                    <img src={imgDev} alt="developer" />
+                <div style={{}}>
+                    <Imagen src={imgDev} alt="developer"/>
                 </div>
             }
         </Contenedor>

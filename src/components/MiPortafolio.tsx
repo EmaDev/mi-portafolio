@@ -6,7 +6,6 @@ import { LineaDeTiempo } from './LineaDeTiempo'
 import { ThemeContext } from '../context/ThemeContext'
 import { ContenedorCardProyectos } from './ContenedorCardProyectos'
 import { Footer } from './Footer'
-import { FormuContacto } from './FormContacto'
 import { Contacto } from './Contacto'
 
 export const MiPortafolio = () => {
@@ -23,7 +22,7 @@ export const MiPortafolio = () => {
             <Seccion idSeccion='experiencia' theme={theme} background={theme.bgPrimario} titulo="Experiencia Laboral." subtitulo="Lo que hice hasta ahora">
                 <LineaDeTiempo/>
             </Seccion>
-            <Seccion background={theme.bgSecundario} theme={theme} idSeccion='contacto' titulo='Contacto'>
+            <Seccion background={theme.bgSecundario} theme={theme} idSeccion='contacto' titulo=''>
                 <Contacto/>
             </Seccion>
             <Footer/>

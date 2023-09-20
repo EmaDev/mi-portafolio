@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { ThemeContext, ThemeType } from "../context/ThemeContext";
 import { CiSun } from "react-icons/ci";

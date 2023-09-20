@@ -42,13 +42,13 @@ const experiencias = [
 ];
 export const LineaDeTiempo = () => {
 
-    const {theme, mostrarComoRGBA} = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
     return (
         <div className="wrapper">
             <div className="center-line" style={{background:  theme.txtPrimario }}></div>
             {
                 experiencias.map((exp, i) => (
-                    <div id={exp.titulo + i} className={`row ${(i % 2 == 0) ? "row-2" : "row-1"}`}>
+                    <div key={exp.titulo + i} id={exp.titulo + i} className={`row ${(i % 2 == 0) ? "row-2" : "row-1"}`}>
                         <section style={{ color: "#000", boxShadow: "3px 3px 10px rgba(0,0,0,0.6)" }}>
                             <div className="icon fas fa-home" style={{boxShadow: `${(theme.modo == "LIGHT") && `0 0 0 3px ${theme.txtPrimario}`}` }}>
                                 <div>
