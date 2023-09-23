@@ -16,7 +16,6 @@ const HeaderSection = styled.header<any>`
    @media(min-width: 850px){
     min-height: 100vh;
    }
-
    padding: 2rem .5rem;
    display: flex;
    flex-direction: column;
@@ -34,12 +33,7 @@ const HeaderSection = styled.header<any>`
    }
 
    .arrowScroll{
-    position:absolute;
-    bottom: 1rem;
-    left: 0;
-    right:0;
-    margin:auto;
-
+    margin-top: 2rem;
     animation: slideInDown; 
     animation-duration: 4s;
     animation-iteration-count: infinite;
@@ -47,12 +41,6 @@ const HeaderSection = styled.header<any>`
 
    .link{
     font-size: 3.5rem;
-   
-    &:hover{
-      color: red;
-      animation: slideInDown; 
-      animation-duration: 2s;
-     } 
   }
 
 `;
@@ -94,7 +82,6 @@ const Boton = styled.a<any>`
    bottom:0;
    left:0; right:0;
    margin:auto;
-   text-align:center;
    cursor:pointer;
    border-radius: 8px;
    border-style:none;
@@ -104,6 +91,9 @@ const Boton = styled.a<any>`
    background: ${({ background }) => background};
    width:90%;
    height: 90%;
+   display:flex;
+   align-items:center;
+   justify-content:center;
 
    ${({ outline, background, bg2 }) => outline &&
     `background: ${hexToRgba(bg2, 0)};
@@ -160,13 +150,11 @@ export const Header = () => {
       </div>
 
       {
-        !isMobile ?
+        !isMobile &&
           <div style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}>
             <BsGithub className="link" onClick={() => { window.location.href = "https://github.com/EmaDev" }} />
             <BsLinkedin className="link" onClick={() => { window.location.href = "https://www.linkedin.com/in/emanuel-cisterna" }} />
           </div>
-          :
-         <> <br/><br/></>
       }
 
       <IoIosArrowDown size={"3rem"} className="arrowScroll" />

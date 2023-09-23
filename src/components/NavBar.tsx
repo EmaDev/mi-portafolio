@@ -7,7 +7,7 @@ import { hexToRgba } from '../helpers';
 
 const Nav = styled.nav<any>`
    background-color: ${({ navHidden }) => (navHidden == "false") ? "#000214" : "rgba(0,0,0,0.5)"};
-   padding: ${({ navHidden }) => (navHidden == "false") ? "2rem 4rem" : "1rem 4rem"};   
+   padding: ${({ navHidden }) => (navHidden == "false") ? "1.3rem 4rem" : ".4rem 3.5rem"};   
    border-bottom: 1px solid rgba(255,255,255, 0.6);
    display: flex;
    align-items:center;
@@ -82,6 +82,7 @@ const Ul = styled.ul`
 const BtnContacto = styled.li`
    border-radius: 8px;
    padding: 1rem 2.5rem;
+   margin: .5rem 0;
 `;
 
 
@@ -124,7 +125,7 @@ export const NavBar = () => {
                 </Ul>
                 <BtnMenu color={theme.modo == "DARK" ? theme.txtPrimario : theme.bgTerciario} onClick={() => setSideBarActivo(true)}><LuMenu /></BtnMenu>
             </Nav>
-            <br /><br />
+            <br /><br /><br/>
         </>
     )
 }

@@ -96,7 +96,7 @@ export const PROYECTOS: ProyectoInterface[] = [
         También podrás cargar crédito y administrar tus saldos`,
         colaboradores: [
             {nombre:"Emanuel Cisterna", img: "https://avatars.githubusercontent.com/u/101511719?v=4"},
-            {nombre: "Maximiliano Ramos", img: "https://avatars.githubusercontent.com/u/26845674?v=4"}
+            {nombre: "Maximiliano Ramos", img: "https://avatars.githubusercontent.com/u/26845674?v=4"},
         ],
         imagen:"https://firebasestorage.googleapis.com/v0/b/portafolio-3c6e9.appspot.com/o/proyectos%2Ffono.jpg?alt=media&token=fe9002db-056c-4e2d-9e2f-26f0d18fd107",
         imagenes:[
@@ -132,6 +132,14 @@ export const PROYECTOS: ProyectoInterface[] = [
             "https://firebasestorage.googleapis.com/v0/b/portafolio-3c6e9.appspot.com/o/proyectos%2Fprode1.jpg?alt=media&token=322555fe-9826-45ad-ac1c-68bcd6152251"
         ],
         tecnologias: ["Next js","React", "Firebase","styled-components", "swiper Js", "sweetalert2", "emoji-flags"]
+    },
+    {
+        titulo: "React Native Pelis App",
+        descripcion: "",
+        colaboradores: [{nombre:"Emanuel Cisterna", img: "https://avatars.githubusercontent.com/u/101511719?v=4"}],
+        imagen: "",
+        imagenes: [],
+        tecnologias: ["React Native","TypeScript","React-Navigation","React Native Snap Carrousel","axios", "TheMovieDB"]
     }
 ]
 

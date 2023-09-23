@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { BsLink45Deg, BsGithub } from "react-icons/bs";
+//import { MdCancel } from "react-icons/md";
 import { ThemeContext } from '../context/ThemeContext';
 import 'animate.css';
 import { ProyectoInterface } from '../data';
@@ -19,30 +21,25 @@ const Contenedor = styled.div<any>`
    align-items:center;
    margin:auto;
    transition: all 1s ease-out;
+   overflow:auto;
 `;
 
 const Modal = styled.div<any>`
-   width: 60vw;
-   height: 80vh;
+   position:relative;
    background: ${({ background }) => background};
    border-radius: 6px;
-   max-width: 650px;
-   position:absolute;
+   max-width: 750px;
+   max-height: 90vh;
+   overflow:auto;
    @media(max-width: 800px){
     width: 90%;  
     height: 90vh;  
    }
    
-   border: 1px solid ${({ background }) => aclararColorRGBA( hexToRgba(background, 1), 25)};
+   border: 1px solid ${({ background }) => aclararColorRGBA(hexToRgba(background, 1), 25)};
    box-shadow: 2px 2px 25px rgba(0,0,0,0.7);
    animation: bounceInUp; 
    animation-duration: 1s;
-   .separador{
-    width: 95%;
-    height: 2px;
-    background: rgba(255,255,255,0.2); 
-    margin: 1rem auto;
-  }
 `;
 
 const ContenedorImagen = styled.div<any>`
@@ -53,7 +50,7 @@ const ContenedorImagen = styled.div<any>`
   .imagen{
     margin:auto;
     min-width:100%;
-    max-height: 320px;
+    max-height: 500px;
     border-radius: 8px 8px 0 0;
   }
   .contenido{
@@ -90,9 +87,33 @@ const DotSlide = styled.span<any>`
 `;
 
 const Titulo = styled.h2`
-   foint-size: 2rem;
-   font-weight:bold;
-   color: ${({ color }) => color};
+   @media(min-width: 850px){
+    display:flex;
+   justify-content: space-between;
+   aling-items:center;
+   }
+
+   h2{
+    font-size: 2.6rem;
+    font-weight:800;
+    color: ${({ color }) => color};
+    margin:0;
+   }
+
+   div{
+    display:flex;
+    column-gap: 2rem;
+
+    a{
+       color: ${({ color }) => hexToRgba(color, 0.6)};
+       font-size: 2.8rem;
+       &:hover{
+        color: ${({ color }) => color};
+        transition: .2s ease all;
+       }
+    }
+   }
+
 `;
 const Descripcion = styled.p`
   font-size: 1.4rem;
@@ -105,27 +126,65 @@ const Descripcion = styled.p`
   }
 `;
 
+const ContenidoModal = styled.div`
+  padding: 0rem 2rem 4rem 2rem;
+  color:${({ color }) => color};
+
+  .separador{
+    width: 95%;
+    height: 2px;
+    background: rgba(255,255,255,0.2); 
+    margin: 2rem auto;
+  }
+  label{
+    margin: 1rem 0;
+    margin-top: 2rem;
+    font-weight: 600;
+    display: block;
+  }
+`;
+
+const Colaborador = styled.div`
+   display:flex;
+   align-items:center;
+   column-gap: 1rem;
+   span{
+    font-size: 1.4rem;
+    font-weight: 600;
+    display:flex;
+
+    &:after{
+        content:"";
+        margin: 0 1rem;
+        margin-right: 2rem;
+        width: 1px;
+        color:#e1e1e1;
+       }
+   }
+   
+   img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+   }
+   
+`;
+/*
 const Boton = styled.button<any>`
    position:absolute;
-   width: 100%;
-   margin:auto;
    border-style:none;
-   background: ${({ background }) => background};
-   bottom:0;
-   border-radius: 5px;
-   color: #fff;
-   font-size: 1.8rem;
-   font-weight: 600;
-   padding: 1rem 2rem;
+   background: none;
+   top:-1rem;
+   right: -1rem;
+   color: red;
+   font-size: 3rem;
+   z-index: 99999;
 
    &:hover{
-    width: 100%;
-    width: 102%;
-    font-size: 2.2rem;
+    font-size: 4rem;
    }
-
    transition: .3s ease all;
-`;
+`;*/
 
 
 interface Props {
@@ -142,9 +201,9 @@ export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
     const [posicionImagen, setPosicionImagen] = useState<number>(0);
     const [translateX, setTranslateX] = useState<string>("0");
     const sliderRef: any = useRef(null);
-    const modalRef: any = useRef(null);
+    const modalRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect( () => {
+    useEffect(() => {
         setPosicionImagen(0);
         setTranslateX("0");
     }, [data]);
@@ -158,7 +217,12 @@ export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
         }
     }, [visible]);
 
-    
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            cerrarModal(false);
+        }
+    }
+
     const volverItemSlider = () => {
         if (posicionImagen > 0) {
             const widthSlider = sliderRef.current.offsetWidth;
@@ -177,15 +241,15 @@ export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
     if (!visible) return <></>;
 
     return (
-        <Contenedor theme={theme.modo}>
+        <Contenedor theme={theme.modo} onClick={handleClickOutside}>
             <Modal background={theme.bgSecundario} ref={modalRef}>
                 <ContenedorImagen posicion={translateX}>
 
                     <BotonSlide left="true" onClick={volverItemSlider}><IoIosArrowBack /></BotonSlide>
                     <BotonSlide onClick={siguienteItemSlider}><IoIosArrowForward /></BotonSlide>
                     <div className='contenido' ref={sliderRef}>
-                        {data.imagenes.map( (img, i) => (
-                            <img key={ img + "-"+ i} className='imagen' src={img} />
+                        {data.imagenes.map((img, i) => (
+                            <img key={img + "-" + i} className='imagen' src={img} />
                         ))}
                     </div>
                     <div style={{ margin: "1rem auto", display: "flex", alignItems: "center", justifyContent: "center", columnGap: "1rem" }}>
@@ -194,22 +258,33 @@ export const ModalProyectos = ({ visible, cerrarModal, data }: Props) => {
                         ))}
                     </div>
                 </ContenedorImagen>
-                <div style={{ padding: "1rem", margin: "0 1rem" }}>
-                    <Titulo color={theme.txtPrimario}>{data.titulo}</Titulo>
+                <ContenidoModal color={`${mostrarComoRGBA(theme.txtPrimario, 7)}`}>
+                    <Titulo color={theme.txtPrimario}>
+                        <h2>{data.titulo}</h2>
+                        <div>
+                            {data.git && <a target={"_blank"} href={data.git}><BsGithub /></a>}
+                            {data.url && <a target={"_blank"} href={data.url}><BsLink45Deg /></a>}
+                        </div>
+                    </Titulo>
                     <Descripcion color={(theme.modo == "DARK") ? theme.txtPrimario : theme.txtSecundario}>{data.descripcion}</Descripcion>
-                </div>
-                <div style={{ position: "absolute", width: "80%", left: 0, right: 0, bottom: "2rem", margin: "auto" }}>
-                    <div style={{ position: "relative", width: "100%", height: "2rem" }}>
-                        <Boton background={"#ff4b4b"} onClick={() => cerrarModal(false)}>Cerrar</Boton>
+                    <div className='separador' style={{ background: mostrarComoRGBA(theme.txtTerciario, 5) + "" }}></div>
+                    <label>Colaboradores: </label>
+                    <div style={{ display: "flex", overflow: "auto" }}>
+                        {data.colaboradores.map(col => (
+                            <Colaborador>
+                                <img src={col.img} />
+                                <span>{col.nombre}</span>
+                            </Colaborador>
+                        ))}
                     </div>
-                </div>
-                <div className='separador' style={{ background: mostrarComoRGBA(theme.txtTerciario, 5) + "" }}></div>
-                <p style={{ margin: 0, textAlign: "center"}}>
-                    {
-                        data.tecnologias.map( (t, i) =>
-                            <span key={t} style={{ fontSize: "1.3rem", fontWeight: "800", color: colores[i % colores.length] }}>{`#${t} `}</span>)
-                    }
-                </p>
+                    <label>Principales tecnologias utilizadas:</label>
+                    <p style={{ margin: 0, textAlign: "center" }}>
+                        {
+                            data.tecnologias.map((t, i) =>
+                                <span key={t} style={{ fontSize: "1.3rem", fontWeight: "800", color: colores[i % colores.length] }}>{`#${t} `}</span>)
+                        }
+                    </p>
+                </ContenidoModal>
             </Modal>
         </Contenedor>
     )

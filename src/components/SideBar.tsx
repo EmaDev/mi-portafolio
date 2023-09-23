@@ -80,7 +80,7 @@ export const SideBar = ({ visibiladad, setVisibilidad }: Props) => {
   if (!isMobile) return <></>
   return (
     <>
-      <Contenedor tema={theme} visible={visibiladad.toString()} />
+      <Contenedor tema={theme} visible={visibiladad.toString()} onClick={() => setVisibilidad(false)}/>
 
       <Barra background={theme.bgPrimario} visible={visibiladad.toString()}>
         <Ul>
