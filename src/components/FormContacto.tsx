@@ -2,16 +2,21 @@ import { useState } from "react";
 import styled from "styled-components";
 import { hexToRgba } from "../helpers";
 import { ThemeProps } from "../context/ThemeContext";
-
+import emailjs from "@emailjs/browser";
+import Swal from "sweetalert2";
 
 const Formulario = styled.form`
    width: 90%;
    max-width: 600px;
    margin: 2rem auto;
    background: #e1e1e1;
-   padding:3rem;
+   padding:3rem 1.5rem;
    border-radius:8px;
    color: #0a103f;
+
+   @media(max-width: 850px){
+    width: 100%;
+   }
 
    label{
     font-size: 2rem;
@@ -24,6 +29,7 @@ const Formulario = styled.form`
     margin:0;
    }
    @media(min-width: 850px){
+    padding: 3rem;
     h2{
         font-size: 5rem;
     }
@@ -45,7 +51,7 @@ const Input = styled.input`
 `;
 const TextArea = styled.textarea`
    width: 100%;
-   min-height: 250px;
+   min-height: 150px;
    padding: 1.5rem;
    background-color: #fff;
    font-size: 2rem;
@@ -88,11 +94,12 @@ const BotonSubmit = styled.input<any>`
 interface Props {
     theme: ThemeProps;
 }
-export const FormuContacto = ({theme}:Props) => {
+export const FormuContacto = ({ theme }: Props) => {
 
-    const [formValues, setFormValues] = useState({ name: '', email: '', message: '' });
+    const [formValues, setFormValues] = useState({ name: '', email: '', message: '', phone: "" });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const { name, email, message } = formValues;
+    const { name, email, message, phone } = formValues;
 
     const onInputStateChange = ({ target }: any) => {
 
@@ -101,35 +108,92 @@ export const FormuContacto = ({theme}:Props) => {
             [target.name]: target.value
         });
     }
+
+    const resetForm = () => {
+        setFormValues({ name: '', email: '', message: '', phone: "" })
+    }
+
+    const handleSubmit = async () => {
+        setIsLoading(true);
+        if (name.trim() == "" || email.trim() == "" || message.trim() == "") {
+            setIsLoading(false);
+            return Swal.fire({
+                title: "Faltan datos obligatorios",
+                icon: "warning"
+            })
+        }
+        const resp = await emailjs.send("service_1sz7mit", "template_xmndj6k",
+            {
+                to_name: "Emanuel Cisterna",
+                to_email: "emanuel00developer@gmail.com",
+                from_name: name,
+                from_mail: email,
+                from_phone: phone,
+                message: message,
+            },
+            "IRpKX0tzEcKYY7rM0"
+        )
+        setIsLoading(false);
+        if (resp.status == 200) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Gracias por contactarme, pronto me comunicare contigo.",
+                showConfirmButton: false,
+                timer: 2300
+            });
+            resetForm();
+        } else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Ups, algo salio mal, Por favor intentalo nuevamente.",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        console.log(resp);
+    }
+
+
     return (
-        <Formulario action="https://formsubmit.co/emanuel00developer@gmail.com" method="POST"
-        style={{background: theme.modo == "LIGHT" ? "#0a103f" : ""}}
+        <Formulario
+            style={{ background: theme.modo == "LIGHT" ? "#0a103f" : "" }}
         >
-            <h2 style={{color: theme.modo == "LIGHT" ? theme.txtTerciario : ""}}>Contacto.</h2>
-            <label>Tu nombre</label>
+            <h2 style={{ color: theme.modo == "LIGHT" ? theme.txtTerciario : "" }}>Contacto.</h2>
+            <label>Nombre</label>
             <Input
                 type="text"
-                placeholder='Como puedo llamarte'
+                placeholder='¿Cómo puedo llamarte?'
                 name='name'
                 value={name}
                 onChange={onInputStateChange}
             />
-            <label>Tu correo</label>
+            <label>Correo</label>
             <Input
                 type="email"
                 name="email"
-                placeholder='Cual es tu correo?'
+                placeholder="¿Cuál es tu correo electronico?"
                 value={email}
                 onChange={onInputStateChange}
             />
+            <label>{"Telefono (opcional)"}</label>
+            <Input
+                type="number"
+                name="phone"
+                placeholder="¿Cuál es tu numero?"
+                value={phone}
+                onChange={onInputStateChange}
+            />
             <label>Mensaje</label>
-            <TextArea placeholder='Que tenes para decirme?'
+            <TextArea placeholder="¿Qué tienes para decirme?"
                 name="message"
                 value={message}
                 onChange={onInputStateChange}
             />
             <div style={{ width: "90%", height: "60px", position: "relative", margin: "auto" }}>
-                <BotonSubmit color={theme.txtPrimario} background={theme.btnColor2} type="submit" value="Enviar mensaje" />
+                <BotonSubmit color={theme.txtPrimario} background={theme.btnColor2} type={"button"}
+                    value="Enviar mensaje" onClick={handleSubmit} disabled={isLoading}/>
             </div>
         </Formulario>
     )

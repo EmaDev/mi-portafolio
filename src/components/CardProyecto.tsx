@@ -16,6 +16,9 @@ const Card = styled.div<any>`
    flex-direction: column;
    justify-content: center;
 
+   @media(max-width: 500px){
+    width: 90%;
+   }
    img{
     height: 180px;
     border-radius: 6px;

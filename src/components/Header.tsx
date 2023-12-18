@@ -13,6 +13,10 @@ import { LISTA_SKILLS } from "../data";
 const HeaderSection = styled.header<any>`
    position:relative;
    background: ${({ background }) => background};
+
+   @media(max-width: 850px){
+    height: 100vh;
+   }
    @media(min-width: 850px){
     min-height: 100vh;
    }
@@ -150,14 +154,15 @@ export const Header = () => {
       </div>
 
       {
-        !isMobile &&
-          <div style={{ display: "flex", gap: "3rem", marginTop: "2rem" }}>
-            <BsGithub className="link" onClick={() => { window.location.href = "https://github.com/EmaDev" }} />
-            <BsLinkedin className="link" onClick={() => { window.location.href = "https://www.linkedin.com/in/emanuel-cisterna" }} />
+        !isMobile ?
+          <div style={{ display: "flex", gap: "3rem", marginTop: "2rem", position: "relative", color: "red"}}>
+            <a href="https://github.com/EmaDev" target={"_blank"} style={{color: theme.txtPrimario}}><BsGithub size="3.8rem"/></a>
+            <a href="https://www.linkedin.com/in/emanuel-cisterna" target={"_blank"} style={{color: theme.txtPrimario}}><BsLinkedin size="3.8rem"/></a>
           </div>
+          :
+          <IoIosArrowDown size={"3rem"} className="arrowScroll" />
       }
 
-      <IoIosArrowDown size={"3rem"} className="arrowScroll" />
     </HeaderSection>
   )
 }

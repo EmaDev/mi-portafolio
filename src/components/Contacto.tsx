@@ -11,6 +11,7 @@ const Contenedor = styled.div`
    margin:auto;
    justify-content:center;
    align-items:center;
+   width: 100%;
 
    @media(min-width: 850px){
     grid-template-columns: 60% 40%;
